@@ -5,7 +5,8 @@ currentProject.textContent = "Current Project";
 
 const createToDo = document.createElement("button");
 createToDo.setAttribute("id", "addTodo");
-
+const todoContainer = document.createElement("div");
+todoContainer.setAttribute("id", "todoContainer");
 let dialog = document.createElement("dialog");
 dialog.innerHTML = `
   <form method="dialog" id="form">
@@ -48,6 +49,7 @@ function renderProjectview() {
   projectView.appendChild(currentProject);
   projectView.appendChild(createToDo);
   projectView.appendChild(dialog);
+  projectView.appendChild(todoContainer);
 }
 function cancel() {
   let cancelButton = document.querySelector("#cancel");

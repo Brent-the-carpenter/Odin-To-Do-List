@@ -8,8 +8,16 @@ class todo {
   }
 }
 function renderTODO(array) {
+  const todoList = document.querySelector("#projectView");
+  const todoContainer = document.querySelector("#todoContainer");
+  if (todoContainer !== null) {
+    while (todoContainer.firstChild) {
+      todoContainer.removeChild(todoContainer.firstChild);
+    }
+  } else {
+    return;
+  }
   array.forEach((object) => {
-    const todoList = document.querySelector("#projectView");
     let todoBody = document.createElement("div");
     todoBody.setAttribute("id", "todoBody");
 
@@ -36,23 +44,23 @@ function renderTODO(array) {
     todoBody.appendChild(description);
     todoBody.appendChild(date);
     todoBody.appendChild(priority);
-
-    todoList.appendChild(todoBody);
+    todoContainer.appendChild(todoBody);
+    todoList.appendChild(todoContainer);
   });
 }
-let Home = [];
 let currentproject = [];
-function addToDO() {
+function addToDO(project) {
   console.log("hi");
   let title = document.querySelector("#title").value;
   let description = document.querySelector("#description").value;
   let priority = document.querySelector("#priority").value;
   let date = document.querySelector("#date").value;
   console.log(title, description);
-  let Todo = new todo(title, description, priority, date);
+  let Todo = new todo(title, description, date, priority);
   currentproject.push(Todo);
   console.log(currentproject);
+
   renderTODO(currentproject);
 }
 
-export { addToDO };
+export { addToDO, currentproject, renderTODO };
