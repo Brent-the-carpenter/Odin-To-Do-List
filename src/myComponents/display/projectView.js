@@ -1,5 +1,5 @@
 import { projectView } from "../index.js";
-
+import { addToDO } from "../todo.js";
 let currentProject = document.createElement("h1");
 currentProject.textContent = "Current Project";
 
@@ -49,11 +49,19 @@ function renderProjectview() {
   projectView.appendChild(createToDo);
   projectView.appendChild(dialog);
 }
-let cancelButton = document.querySelector("#cancel");
+function cancel() {
+  let cancelButton = document.querySelector("#cancel");
 
-cancelButton.addEventListener("click", () => {
-  dialog.close();
-  openCheck(dialog);
-});
+  cancelButton.addEventListener("click", () => {
+    dialog.close();
+    openCheck(dialog);
+  });
+}
+function submit() {
+  let submitButton = document.querySelector("#submit");
+  submitButton.addEventListener("click", () => {
+    addToDO();
+  });
+}
 
-export { renderProjectview };
+export { renderProjectview, cancel, submit };
