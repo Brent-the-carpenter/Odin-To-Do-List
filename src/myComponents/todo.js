@@ -48,19 +48,37 @@ function renderTODO(array) {
     todoList.appendChild(todoContainer);
   });
 }
-let currentproject = [];
-function addToDO(project) {
+const defaultArray = [];
+
+let currentProject = [];
+
+function setCurrentProject(array) {
+  currentProject = array;
+}
+
+function getCurrentProject() {
+  return currentProject;
+}
+
+function addToDO(array) {
   console.log("hi");
+  let currentArray = array;
   let title = document.querySelector("#title").value;
   let description = document.querySelector("#description").value;
   let priority = document.querySelector("#priority").value;
   let date = document.querySelector("#date").value;
   console.log(title, description);
   let Todo = new todo(title, description, date, priority);
-  currentproject.push(Todo);
-  console.log(currentproject);
+  currentArray.push(Todo);
+  console.log(array);
 
-  renderTODO(currentproject);
+  renderTODO(currentArray);
 }
 
-export { addToDO, currentproject, renderTODO };
+export {
+  addToDO,
+  renderTODO,
+  defaultArray,
+  setCurrentProject,
+  getCurrentProject,
+};

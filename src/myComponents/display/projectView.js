@@ -1,7 +1,13 @@
 import { projectView } from "../index.js";
-import { addToDO } from "../todo.js";
-let currentProject = document.createElement("h1");
-currentProject.textContent = "Current Project";
+import {
+  addToDO,
+  defaultArray,
+  getCurrentProject,
+  setCurrentProject,
+} from "../todo.js";
+let DefaultProject = document.createElement("h1");
+DefaultProject.setAttribute("id", "projectViewHeading");
+DefaultProject.textContent = "Default Project";
 
 const createToDo = document.createElement("button");
 createToDo.setAttribute("id", "addTodo");
@@ -46,10 +52,11 @@ createToDo.addEventListener("click", () => {
 });
 
 function renderProjectview() {
-  projectView.appendChild(currentProject);
+  projectView.appendChild(DefaultProject);
   projectView.appendChild(createToDo);
   projectView.appendChild(dialog);
   projectView.appendChild(todoContainer);
+  setCurrentProject(defaultArray);
 }
 function cancel() {
   let cancelButton = document.querySelector("#cancel");
@@ -62,8 +69,8 @@ function cancel() {
 function submit() {
   let submitButton = document.querySelector("#submit");
   submitButton.addEventListener("click", () => {
-    addToDO();
+    addToDO(getCurrentProject());
   });
 }
 
-export { renderProjectview, cancel, submit };
+export { renderProjectview, cancel, submit, DefaultProject };

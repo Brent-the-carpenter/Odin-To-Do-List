@@ -1,7 +1,7 @@
-import { currentproject, renderTODO } from "./todo.js";
+import { getCurrentProject, renderTODO } from "./todo.js";
 
 function logProjectProperties() {
-  currentproject.forEach((todo, index) => {
+  getCurrentProject().forEach((todo, index) => {
     const todoString = JSON.stringify(todo, null, 2);
     console.log(`Todo ${index + 1}:`);
     console.log(todoString);
@@ -9,7 +9,7 @@ function logProjectProperties() {
   });
 }
 
-function filterTodosByDate(dateRange) {
+function filterTodosByDate(dateRange, currentArray) {
   logProjectProperties();
 
   let today = new Date();
@@ -34,7 +34,7 @@ function filterTodosByDate(dateRange) {
   // Declare filteredArray inside the function
   let filteredArray = [];
 
-  currentproject.forEach(function (object) {
+  currentArray.forEach(function (object) {
     console.log(object.duedate);
 
     let dueDate = new Date(object.duedate);
