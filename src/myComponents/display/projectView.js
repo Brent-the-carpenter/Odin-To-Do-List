@@ -69,7 +69,7 @@ function cancel() {
 function submit() {
   let submitButton = document.querySelector("#submit");
   submitButton.addEventListener("click", () => {
-    addToDO(getCurrentProject());
+    addToDO();
   });
 }
 

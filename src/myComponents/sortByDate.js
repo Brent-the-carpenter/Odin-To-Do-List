@@ -31,7 +31,6 @@ function filterTodosByDate(dateRange, currentArray) {
     console.log(`end of month ${filterDate}`);
   }
 
-  // Declare filteredArray inside the function
   let filteredArray = [];
 
   currentArray.forEach(function (object) {

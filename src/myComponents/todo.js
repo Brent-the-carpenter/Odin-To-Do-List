@@ -60,19 +60,19 @@ function getCurrentProject() {
   return currentProject;
 }
 
-function addToDO(array) {
-  console.log("hi");
-  let currentArray = array;
+function addToDO() {
   let title = document.querySelector("#title").value;
   let description = document.querySelector("#description").value;
   let priority = document.querySelector("#priority").value;
   let date = document.querySelector("#date").value;
-  console.log(title, description);
-  let Todo = new todo(title, description, date, priority);
-  currentArray.push(Todo);
-  console.log(array);
 
-  renderTODO(currentArray);
+  const currentProjectName = getCurrentProject();
+
+  let newTodo = new todo(title, description, date, priority);
+
+  getCurrentProject().push(newTodo);
+
+  renderTODO(currentProjectName);
 }
 
 export {
@@ -81,4 +81,5 @@ export {
   defaultArray,
   setCurrentProject,
   getCurrentProject,
+  todo,
 };

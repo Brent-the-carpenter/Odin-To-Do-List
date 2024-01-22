@@ -16,7 +16,9 @@ Home.addEventListener("click", () => renderTODO(getCurrentProject()));
 
 const Today = document.createElement("button");
 Today.setAttribute("id", "today");
-Today.addEventListener("click", () => filterTodosByDate("today"));
+Today.addEventListener("click", () =>
+  filterTodosByDate("today", getCurrentProject())
+);
 
 const Week = document.createElement("button");
 Week.setAttribute("id", "week");
@@ -27,7 +29,7 @@ Week.addEventListener("click", () =>
 const Month = document.createElement("button");
 Month.setAttribute("id", "month");
 Month.addEventListener("click", () =>
-  filterTodosByDate("month", currentProject)
+  filterTodosByDate("month", getCurrentProject())
 );
 
 const projectHeading = document.createElement("h3");
