@@ -1,4 +1,4 @@
-import { getCurrentProject, renderTODO } from "./todo.js";
+import {} from "./todo.js";
 
 function logProjectProperties() {
   getCurrentProject().forEach((todo, index) => {

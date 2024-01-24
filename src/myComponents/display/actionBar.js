@@ -1,11 +1,12 @@
 import { actionBar } from "../index.js";
 import { filterTodosByDate } from "../sortByDate.js";
 import "../sortByDate.js"; // might not need
-import { renderTODO, defaultArray, getCurrentProject } from "../todo.js";
+import { todo } from "../todo.js";
 import {
   addProject,
   changeProjectViewHeading,
   changeProjectArray,
+  projectFolder,
 } from "../project.js";
 
 const buttonContainer = document.createElement("div");
@@ -45,7 +46,7 @@ projectEntry.setAttribute("placeholder", "enter name here.");
 projectEntry.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     console.log("enter");
-    addProject();
+    addProject(projectEntry.value, []);
     projectEntry.value = "";
   }
 });
@@ -53,15 +54,6 @@ projectEntry.addEventListener("keydown", (event) => {
 const createProject = document.createElement("button");
 createProject.setAttribute("id", "createProject");
 createProject.addEventListener("click", () => addProject());
-
-const defaultFolder = document.createElement("button");
-defaultFolder.textContent = "Default Project";
-defaultFolder.addEventListener(
-  "click",
-  () => changeProjectViewHeading("Default Project"),
-  changeProjectArray(defaultArray),
-  renderTODO(defaultArray)
-);
 
 createProject.textContent = "New project +";
 projectHeading.textContent = "Projects";
@@ -77,10 +69,14 @@ function renderActionbar() {
   buttonContainer.appendChild(Month);
   projectContainer.appendChild(projectEntry);
   projectContainer.appendChild(createProject);
-  projectContainer.appendChild(defaultFolder);
+
   actionBar.appendChild(buttonContainer);
   actionBar.appendChild(projectHeading);
   actionBar.appendChild(projectContainer);
+  // Initiallize with value to pass func call then set to blank for user
+  projectEntry.value = "Default Project";
+  addProject("Default Project", []);
+  projectEntry.value = "";
 }
 
 export { renderActionbar, Home, Today, Week, Month, projectContainer };

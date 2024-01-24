@@ -1,13 +1,16 @@
 import { projectView } from "../index.js";
+import { todo } from "../todo.js";
 import {
+  projectFolder,
   addToDO,
-  defaultArray,
-  getCurrentProject,
-  setCurrentProject,
-} from "../todo.js";
+  renderTODO,
+  projectsArray,
+} from "../project.js";
+
 let DefaultProject = document.createElement("h1");
 DefaultProject.setAttribute("id", "projectViewHeading");
 DefaultProject.textContent = "Default Project";
+DefaultProject.dataset.array = 0;
 
 const createToDo = document.createElement("button");
 createToDo.setAttribute("id", "addTodo");
@@ -56,7 +59,6 @@ function renderProjectview() {
   projectView.appendChild(createToDo);
   projectView.appendChild(dialog);
   projectView.appendChild(todoContainer);
-  setCurrentProject(defaultArray);
 }
 function cancel() {
   let cancelButton = document.querySelector("#cancel");
@@ -66,10 +68,13 @@ function cancel() {
     openCheck(dialog);
   });
 }
+// when submit is clicked it checks what project we are  on and passes vaule to add to do func
 function submit() {
   let submitButton = document.querySelector("#submit");
+  let selectedProjectIndex = DefaultProject.dataset.array;
+  console.log(`im working submit array ${selectedProjectIndex}`);
   submitButton.addEventListener("click", () => {
-    addToDO();
+    addToDO(projectsArray[selectedProjectIndex].array);
   });
 }
 
