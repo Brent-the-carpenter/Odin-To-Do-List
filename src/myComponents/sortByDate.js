@@ -1,16 +1,17 @@
-import {} from "./todo.js";
-
-function logProjectProperties() {
-  getCurrentProject().forEach((todo, index) => {
-    const todoString = JSON.stringify(todo, null, 2);
-    console.log(`Todo ${index + 1}:`);
-    console.log(todoString);
-    console.log("---------------------");
-  });
-}
+import { DefaultProject } from "./display/projectView.js";
+import { renderTODO } from "./todo.js";
+import { projectsArray } from "./project.js";
+// function logProjectProperties() {
+//   projectsArray[DefaultProject.dataset.array].forEach((todo, index) => {
+//     const todoString = JSON.stringify(todo, null, 2);
+//     console.log(`Todo ${index + 1}:`);
+//     console.log(todoString);
+//     console.log("---------------------");
+//   });
+// }
 
 function filterTodosByDate(dateRange, currentArray) {
-  logProjectProperties();
+  // logProjectProperties();
 
   let today = new Date();
   let filterDate;

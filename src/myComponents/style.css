@@ -3,12 +3,16 @@
   margin: 0;
 }
 html {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0;
 }
 body {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
   /* background-image: linear-gradient(90deg, #1e312c, #b2e5cd); */
 }
 .title {
@@ -23,11 +27,13 @@ body {
 .content {
   display: grid;
   grid-template-columns: 0.2fr 1fr;
+
   height: 100%;
 }
 #actionBar {
   display: grid;
-  grid-template-rows: 4fr 7rem 6fr;
+  width: auto;
+  grid-template-rows: 1fr 7rem 2fr;
   grid-column: 1/2;
   grid-auto-flow: row;
   border-right: 3px solid rgba(0, 0, 0, 0.7);
@@ -36,7 +42,10 @@ body {
 }
 #buttonContainer {
   display: grid;
+
+  gap: 16px;
   grid-auto-flow: row;
+
   grid-row: 1/2;
 }
 button {
@@ -46,6 +55,16 @@ button {
   border: none;
   /* border-bottom: 3px solid white; */
   text-decoration: underline 3px solid white;
+}
+
+#projectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+#projectEntry {
+  font-size: 20px;
+  margin: 16px;
 }
 #projectHead {
   width: 100%;
@@ -127,4 +146,42 @@ form div {
 }
 #cancel {
   grid-column: 2/3;
+}
+#todoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#todoBody {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: rgba(30, 30, 30, 0.5);
+  color: white;
+  border: 2px solid rgba(30, 30, 30, 0.5);
+  border-radius: 10px;
+  gap: 16px;
+  padding: 8px;
+  font-size: large;
+}
+#todoTitle {
+  grid-row: 1/2;
+}
+
+#todoDescription {
+  grid-row: 2/3;
+  grid-column: 1/3;
+}
+#todoPriority {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+#checkbox {
+  grid-row: 2/3;
+  grid-column: 3/4;
+  border: 2px solid black;
+  height: 25px;
+  accent-color: green;
 }
