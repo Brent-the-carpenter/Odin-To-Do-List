@@ -5,22 +5,6 @@ import "../sortByDate.js"; // might not need
 import { DefaultProject } from "./projectView.js";
 import { renderTODO } from "../todo.js";
 
-function renderActionbar() {
-  buttonContainer.appendChild(Home);
-  buttonContainer.appendChild(Today);
-  buttonContainer.appendChild(Week);
-  buttonContainer.appendChild(Month);
-  projectContainer.appendChild(projectEntry);
-  projectContainer.appendChild(createProject);
-
-  actionBar.appendChild(buttonContainer);
-  actionBar.appendChild(projectHeading);
-  actionBar.appendChild(projectContainer);
-  // Initiallize with value to pass func call then set to blank for user
-  projectEntry.value = "Default Project";
-  addProject("Default Project", []);
-  projectEntry.value = "";
-}
 const buttonContainer = document.createElement("div");
 buttonContainer.setAttribute("id", "buttonContainer");
 const Home = document.createElement("button");
@@ -49,7 +33,8 @@ Month.addEventListener("click", () =>
 
 const projectHeading = document.createElement("h3");
 projectHeading.setAttribute("id", "projectHead");
-
+const projectsWrapper = document.createElement("div");
+projectsWrapper.setAttribute("id", "projectWrapper");
 const projectContainer = document.createElement("div");
 projectContainer.setAttribute("id", "projectContainer");
 
@@ -57,6 +42,7 @@ const projectEntry = document.createElement("input");
 projectEntry.setAttribute("type", "text");
 projectEntry.setAttribute("id", "projectEntry");
 projectEntry.setAttribute("placeholder", "enter name here.");
+
 projectEntry.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     console.log("enter");
@@ -76,6 +62,23 @@ Today.textContent = "Today";
 Week.textContent = "Week";
 Month.textContent = "Month";
 
-//
+function renderActionbar() {
+  buttonContainer.appendChild(Home);
+  buttonContainer.appendChild(Today);
+  buttonContainer.appendChild(Week);
+  buttonContainer.appendChild(Month);
+  projectsWrapper.appendChild(projectHeading);
+  projectsWrapper.appendChild(projectContainer);
+  projectsWrapper.appendChild(projectEntry);
+  projectContainer.appendChild(createProject);
+
+  actionBar.appendChild(buttonContainer);
+  actionBar.appendChild(projectsWrapper);
+
+  // Initiallize with value to pass func call then set to blank for user
+  projectEntry.value = "Default Project";
+  addProject("Default Project", []);
+  projectEntry.value = "";
+}
 
 export { renderActionbar, Home, Today, Week, Month, projectContainer };

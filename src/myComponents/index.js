@@ -10,7 +10,7 @@ const projectView = document.querySelector("#projectView");
 
 renderProjectview();
 renderActionbar();
-// addProject("Default Project", []);
+
 cancel();
 submit();
 export { actionBar, projectView };

@@ -50,7 +50,7 @@ function renderTODO(array, TodoIndex) {
 
     let date = document.createElement("div");
     date.textContent = `Due by : ${object.reformattedDate}`;
-    date.setAttribute("id", "tododate");
+    date.setAttribute("id", "todoDate");
     let priority = document.createElement("span");
     priority.setAttribute("id", "todoPriority");
     priority.textContent = ` Priority : ${object.priority}`;
@@ -60,7 +60,7 @@ function renderTODO(array, TodoIndex) {
     checked.setAttribute("id", "checkbox");
 
     let deleteToDo = document.createElement("button");
-    deleteToDo.setAttribute("id", `todo-${TodoIndex}`);
+    deleteToDo.setAttribute("id", `deleteTodo`);
     deleteToDo.textContent = "x";
     deleteToDo.addEventListener("click", () => {
       projectsArray[DefaultProject.dataset.array].array.splice(TodoIndex, 1);

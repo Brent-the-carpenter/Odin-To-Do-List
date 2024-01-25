@@ -6,31 +6,58 @@ let projectsArray = [];
 function addProject(name) {
   let projectEntry = document.querySelector("#projectEntry");
   name = projectEntry.value;
-  let arrayIndex = i;
-  let projectFolderButton = document.createElement("button");
-  projectFolderButton.setAttribute("id", arrayIndex);
-  i++;
 
   let newProject = new projectFolder(name);
-  console.log(`${newProject.name} index ${arrayIndex}`);
+  newProject.index = projectsArray.length;
+  console.log(`${newProject.name} index ${newProject.index}`);
   projectsArray.push(newProject);
-  console.log(projectsArray);
-  projectFolderButton.textContent = name;
 
-  projectFolderButton.addEventListener("click", (event) => {
-    let arrayIndex = event.target.id;
-    changeProjectViewHeading(newProject.name, arrayIndex);
-    renderTODO(projectsArray[arrayIndex].array);
-    console.log(projectsArray[arrayIndex].array);
-    changeProjectArray();
-    projectEntry.value = "";
-  });
-
-  projectContainer.appendChild(projectFolderButton);
+  renderProjects();
 }
 
-function changeProjectArray(array, projectName) {
-  console.log("changing array");
+function renderProjects() {
+  const projectContainer = document.querySelector("#projectContainer");
+  if (projectContainer !== null) {
+    while (projectContainer.firstChild) {
+      projectContainer.removeChild(projectContainer.firstChild);
+    }
+  } else {
+    return;
+  }
+  console.log(projectsArray);
+  projectsArray.forEach((project) => {
+    let folderContainer = document.createElement("div");
+    folderContainer.setAttribute("id", "folderContainer");
+
+    let projectFolderButton = document.createElement("button");
+    projectFolderButton.setAttribute("id", project.index);
+    projectFolderButton.textContent = project.name;
+    projectFolderButton.dataset.array = project.index;
+
+    let deletefolder = document.createElement("button");
+    deletefolder.setAttribute("id", `deleteProject`);
+    deletefolder.textContent = "x";
+
+    i++;
+    projectFolderButton.addEventListener("click", (event) => {
+      let arrayIndex = event.target.id;
+      console.log(`Project ${arrayIndex}`);
+      changeProjectViewHeading(project.name, arrayIndex);
+      renderTODO(projectsArray[project.index].array);
+      console.log(projectsArray[project.index].array);
+
+      projectEntry.value = "";
+    });
+
+    deletefolder.addEventListener("click", () => {
+      projectsArray.splice(project.index, 1);
+      renderProjects();
+    });
+
+    folderContainer.appendChild(projectFolderButton);
+    folderContainer.appendChild(deletefolder);
+    projectContainer.appendChild(folderContainer);
+  });
 }
 function changeProjectViewHeading(projectName, arrayIndex) {
   console.log("changing name");
@@ -41,7 +68,7 @@ function changeProjectViewHeading(projectName, arrayIndex) {
 
 export {
   addProject,
-  changeProjectArray,
+  renderProjects,
   changeProjectViewHeading,
   projectFolder,
   projectsArray,
@@ -53,5 +80,6 @@ class projectFolder {
   constructor(name) {
     this.name = name;
     this.array = [];
+    this.index = null;
   }
 }
