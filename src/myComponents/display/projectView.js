@@ -69,7 +69,7 @@ function submit() {
   submitButton.addEventListener("click", () => {
     let selectedProjectIndex = DefaultProject.dataset.array;
     console.log(`Submit button clicked for array ${selectedProjectIndex}`);
-    addToDO(projectsArray[selectedProjectIndex].array);
+    addToDO(projectsArray[selectedProjectIndex].array, selectedProjectIndex);
   });
 }
 

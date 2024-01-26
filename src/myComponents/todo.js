@@ -1,5 +1,6 @@
 import { DefaultProject } from "./display/projectView";
 import { projectsArray } from "./project";
+import { updateLocalStorageProjects } from "./storage";
 
 class todo {
   constructor(title, description, duedate, priority, checked) {
@@ -13,7 +14,7 @@ class todo {
     this.index = null;
   }
 }
-function addToDO(array) {
+function addToDO(array, selectedProjectIndex) {
   console.log(array);
   let title = document.querySelector("#title").value;
   let description = document.querySelector("#description").value;
@@ -22,13 +23,31 @@ function addToDO(array) {
 
   let newTodo = new todo(title, description, date, priority);
   newTodo.index = array.length;
+  // localStorage.setItem(`${newTodo.name}`, newTodo);
   array.push(newTodo);
+  updateLocalStorageProjects(array, selectedProjectIndex);
 
   renderTODO(array, newTodo.index);
+}
+function deleteTodo(projectIndex, todoIndex) {
+  const existingProjectsString = localStorage.getItem("ProjectFolders");
+  const existingProjects = existingProjectsString
+    ? JSON.parse(existingProjectsString)
+    : [];
+
+  // Remove the todo from the specified project's todos array
+  existingProjects[projectIndex].array.splice(todoIndex, 1);
+
+  // Update local storage with the modified projects array
+  localStorage.setItem("ProjectFolders", JSON.stringify(existingProjects));
+
+  // Optionally, update the UI to reflect the changes
+  renderTODO(existingProjects[projectIndex].array);
 }
 function renderTODO(array, TodoIndex) {
   const todoList = document.querySelector("#projectView");
   const todoContainer = document.querySelector("#todoContainer");
+  console.log(array);
   if (todoContainer !== null) {
     while (todoContainer.firstChild) {
       todoContainer.removeChild(todoContainer.firstChild);
@@ -63,8 +82,13 @@ function renderTODO(array, TodoIndex) {
     deleteToDo.setAttribute("id", `deleteTodo`);
     deleteToDo.textContent = "x";
     deleteToDo.addEventListener("click", () => {
-      projectsArray[DefaultProject.dataset.array].array.splice(TodoIndex, 1);
-      renderTODO(array);
+      let currentProject = DefaultProject.dataset.array;
+      console.log(array);
+      console.log(TodoIndex);
+
+      projectsArray[currentProject].array.splice(TodoIndex, 1);
+      deleteTodo(currentProject, TodoIndex);
+      renderTODO(array, TodoIndex);
     });
 
     todoBody.appendChild(deleteToDo);

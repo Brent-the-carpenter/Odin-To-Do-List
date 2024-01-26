@@ -1,6 +1,5 @@
 import "./style.css";
-import { addProject } from "./project.js";
-import { projectsArray } from "./project.js";
+import { addProject, renderProjects } from "./project.js";
 import { renderActionbar } from "./display/actionBar.js";
 import { renderProjectview } from "./display/projectView.js";
 import { cancel, submit } from "./display/projectView.js";
@@ -11,6 +10,7 @@ const projectView = document.querySelector("#projectView");
 renderProjectview();
 renderActionbar();
 
+renderProjects();
 cancel();
 submit();
 export { actionBar, projectView };

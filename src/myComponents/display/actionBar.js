@@ -1,9 +1,10 @@
 import { actionBar } from "../index.js";
-import { addProject, projectsArray } from "../project.js";
+import { addProject, projectsArray, renderProjects } from "../project.js";
 import { filterTodosByDate } from "../sortByDate.js";
 import "../sortByDate.js"; // might not need
 import { DefaultProject } from "./projectView.js";
 import { renderTODO } from "../todo.js";
+import { getAllProjectsFromStorage } from "../storage.js";
 
 const buttonContainer = document.createElement("div");
 buttonContainer.setAttribute("id", "buttonContainer");
@@ -46,7 +47,7 @@ projectEntry.setAttribute("placeholder", "enter name here.");
 projectEntry.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     console.log("enter");
-    addProject(projectEntry.value, []);
+    addProject(projectEntry.value);
     projectEntry.value = "";
   }
 });
@@ -76,9 +77,10 @@ function renderActionbar() {
   actionBar.appendChild(projectsWrapper);
 
   // Initiallize with value to pass func call then set to blank for user
-  projectEntry.value = "Default Project";
-  addProject("Default Project", []);
+  // projectEntry.vaule = "Default Project ";
+  // addProject(projectEntry.value);
   projectEntry.value = "";
+  getAllProjectsFromStorage();
 }
 
 export { renderActionbar, Home, Today, Week, Month, projectContainer };
