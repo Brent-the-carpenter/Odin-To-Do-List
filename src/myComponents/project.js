@@ -1,5 +1,5 @@
 import { DefaultProject } from "./display/projectView";
-import { projectContainer } from "./display/actionBar";
+
 import { renderTODO } from "./todo";
 
 let projectsArray = [];
