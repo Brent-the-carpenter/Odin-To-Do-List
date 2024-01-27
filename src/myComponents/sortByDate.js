@@ -1,9 +1,10 @@
 import { renderTODO } from "./todo.js";
-
+import { DefaultProject } from "./display/projectView.js";
+let filteredArray = [];
 function filterTodosByDate(dateRange, currentArray) {
   let today = new Date();
   let filterDate;
-
+  console.log(currentArray);
   if (dateRange === "today") {
     filterDate = today;
   } else if (dateRange === "week") {
@@ -19,9 +20,7 @@ function filterTodosByDate(dateRange, currentArray) {
     filterDate = endOfMonth;
     console.log(`end of month ${filterDate}`);
   }
-
-  let filteredArray = [];
-
+  filteredArray = [];
   currentArray.forEach(function (object) {
     console.log(object.duedate);
 
@@ -39,4 +38,4 @@ function filterTodosByDate(dateRange, currentArray) {
   renderTODO(filteredArray);
 }
 
-export { filterTodosByDate };
+export { filterTodosByDate, filteredArray };

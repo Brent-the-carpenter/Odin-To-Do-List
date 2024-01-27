@@ -1,6 +1,7 @@
 import { DefaultProject } from "./display/projectView";
 import { projectsArray } from "./project";
 import { updateLocalStorageProjects } from "./storage";
+import { filterTodosByDate, filteredArray } from "./sortByDate";
 
 class todo {
   constructor(title, description, duedate, priority, checked) {
@@ -20,15 +21,19 @@ function addToDO(array, selectedProjectIndex) {
   let description = document.querySelector("#description").value;
   let priority = document.querySelector("#priority").value;
   let date = document.querySelector("#date").value;
+  if (title === "") {
+    alert("Title Cannot be blank");
+  } else {
+    let newTodo = new todo(title, description, date, priority);
+    newTodo.index = array.length;
+    // localStorage.setItem(`${newTodo.name}`, newTodo);
+    array.push(newTodo);
+    updateLocalStorageProjects(array, selectedProjectIndex);
 
-  let newTodo = new todo(title, description, date, priority);
-  newTodo.index = array.length;
-  // localStorage.setItem(`${newTodo.name}`, newTodo);
-  array.push(newTodo);
-  updateLocalStorageProjects(array, selectedProjectIndex);
-
-  renderTODO(array, newTodo.index);
+    renderTODO(array);
+  }
 }
+
 function deleteTodo(projectIndex, todoIndex) {
   const existingProjectsString = localStorage.getItem("ProjectFolders");
   const existingProjects = existingProjectsString
@@ -42,12 +47,14 @@ function deleteTodo(projectIndex, todoIndex) {
   localStorage.setItem("ProjectFolders", JSON.stringify(existingProjects));
 
   // Optionally, update the UI to reflect the changes
-  renderTODO(existingProjects[projectIndex].array);
+  // renderTODO(existingProjects[projectIndex].array);
 }
-function renderTODO(array, TodoIndex) {
+
+function renderTODO(array) {
   const todoList = document.querySelector("#projectView");
   const todoContainer = document.querySelector("#todoContainer");
   console.log(array);
+
   if (todoContainer !== null) {
     while (todoContainer.firstChild) {
       todoContainer.removeChild(todoContainer.firstChild);
@@ -55,7 +62,7 @@ function renderTODO(array, TodoIndex) {
   } else {
     return;
   }
-  array.forEach((object) => {
+  array.forEach((object, index) => {
     let todoBody = document.createElement("div");
     todoBody.setAttribute("id", "todoBody");
 
@@ -79,16 +86,29 @@ function renderTODO(array, TodoIndex) {
     checked.setAttribute("id", "checkbox");
 
     let deleteToDo = document.createElement("button");
-    deleteToDo.setAttribute("id", `deleteTodo`);
+    deleteToDo.setAttribute("id", `deleteTodo-${index}`);
     deleteToDo.textContent = "x";
-    deleteToDo.addEventListener("click", () => {
+    deleteToDo.addEventListener("click", (event) => {
       let currentProject = DefaultProject.dataset.array;
-      console.log(array);
-      console.log(TodoIndex);
+      let deleteToDoIndex = event.target.id;
+      let deleteToDoAt = deleteToDoIndex.split("-");
+      console.log(`array before delete ${projectsArray[currentProject].array}`);
+      // console.log(object.index);
 
-      projectsArray[currentProject].array.splice(TodoIndex, 1);
-      deleteTodo(currentProject, TodoIndex);
-      renderTODO(array, TodoIndex);
+      projectsArray[currentProject].array.splice(deleteToDoAt[1], 1);
+      deleteTodo(currentProject, deleteToDo[1]);
+      if (DefaultProject.dataset.filter !== " ") {
+        console.log(
+          ` array after delete${projectsArray[currentProject].array}`
+        );
+        filterTodosByDate(
+          DefaultProject.dataset.filter,
+          projectsArray[currentProject].array
+        );
+        renderTODO(filteredArray);
+      } else {
+        renderTODO(array);
+      }
     });
 
     todoBody.appendChild(deleteToDo);

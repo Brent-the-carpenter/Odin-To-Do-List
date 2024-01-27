@@ -10,27 +10,41 @@ const buttonContainer = document.createElement("div");
 buttonContainer.setAttribute("id", "buttonContainer");
 const Home = document.createElement("button");
 Home.setAttribute("id", "home");
-Home.addEventListener("click", () =>
-  renderTODO(projectsArray[DefaultProject.dataset.array].array)
-);
+Home.addEventListener("click", () => {
+  (DefaultProject.dataset.filter = "home"),
+    renderTODO(projectsArray[DefaultProject.dataset.array].array);
+});
 
 const Today = document.createElement("button");
 Today.setAttribute("id", "today");
-Today.addEventListener("click", () =>
-  filterTodosByDate("today", projectsArray[DefaultProject.dataset.array].array)
-);
+Today.addEventListener("click", () => {
+  (DefaultProject.dataset.filter = "today"),
+    filterTodosByDate(
+      "today",
+      projectsArray[DefaultProject.dataset.array].array
+    );
+});
 
 const Week = document.createElement("button");
 Week.setAttribute("id", "week");
-Week.addEventListener("click", () =>
-  filterTodosByDate("week", projectsArray[DefaultProject.dataset.array].array)
-);
+Week.addEventListener("click", () => {
+  console.log(projectsArray[DefaultProject.dataset.array].array),
+    (DefaultProject.dataset.filter = "week"),
+    filterTodosByDate(
+      "week",
+      projectsArray[DefaultProject.dataset.array].array
+    );
+});
 
 const Month = document.createElement("button");
 Month.setAttribute("id", "month");
-Month.addEventListener("click", () =>
-  filterTodosByDate("month", projectsArray[DefaultProject.dataset.array].array)
-);
+Month.addEventListener("click", () => {
+  (DefaultProject.dataset.filter = "month"), //new
+    filterTodosByDate(
+      "month",
+      projectsArray[DefaultProject.dataset.array].array
+    );
+});
 
 const projectHeading = document.createElement("h3");
 projectHeading.setAttribute("id", "projectHead");
@@ -76,9 +90,6 @@ function renderActionbar() {
   actionBar.appendChild(buttonContainer);
   actionBar.appendChild(projectsWrapper);
 
-  // Initiallize with value to pass func call then set to blank for user
-  // projectEntry.vaule = "Default Project ";
-  // addProject(projectEntry.value);
   projectEntry.value = "";
   getAllProjectsFromStorage();
 }

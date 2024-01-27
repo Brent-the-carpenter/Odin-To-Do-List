@@ -12,38 +12,42 @@ class ProjectFolder {
   }
 }
 function addProject(name) {
-  // Create a new project
-  let newProject = new ProjectFolder(name);
-  newProject.index = projectsArray.length;
-  console.log(`${newProject.name} index ${newProject.index}`);
+  if (name === "") {
+    alert("can not create project with no name!");
+  } else {
+    // Create a new project
+    let newProject = new ProjectFolder(name);
+    newProject.index = projectsArray.length;
+    console.log(`${newProject.name} index ${newProject.index}`);
 
-  // Retrieve existing projects from local storage
-  const existingProjectsString = localStorage.getItem("ProjectFolders");
-  const existingProjects = existingProjectsString
-    ? JSON.parse(existingProjectsString)
-    : [];
+    // Retrieve existing projects from local storage
+    const existingProjectsString = localStorage.getItem("ProjectFolders");
+    const existingProjects = existingProjectsString
+      ? JSON.parse(existingProjectsString)
+      : [];
 
-  // Check if the project already exists
-  const isProjectExists = existingProjects.some(
-    (project) => project.name === name
-  );
+    // Check if the project already exists
+    const isProjectExists = existingProjects.some(
+      (project) => project.name === name
+    );
 
-  // Add the new project to the existing projects array only if it doesn't exist
-  if (!isProjectExists) {
-    existingProjects.push(newProject);
+    // Add the new project to the existing projects array only if it doesn't exist
+    if (!isProjectExists) {
+      existingProjects.push(newProject);
+    }
+
+    // Update local storage with the updated projects array
+    localStorage.setItem("ProjectFolders", JSON.stringify(existingProjects));
+
+    // Update projectsArray with the updated projects
+    projectsArray = existingProjects;
+
+    // Render projects
+    renderProjects();
+
+    // Return the new project (useful if you want to do something with it)
+    return newProject;
   }
-
-  // Update local storage with the updated projects array
-  localStorage.setItem("ProjectFolders", JSON.stringify(existingProjects));
-
-  // Update projectsArray with the updated projects
-  projectsArray = existingProjects;
-
-  // Render projects
-  renderProjects();
-
-  // Return the new project (useful if you want to do something with it)
-  return newProject;
 }
 
 // Add the default project

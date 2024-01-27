@@ -1,11 +1,16 @@
 import { projectView } from "../index.js";
-import { todo, addToDO, renderTODO } from "../todo.js";
-import { projectFolder, projectsArray } from "../project.js";
+import { addToDO } from "../todo.js";
+import { projectsArray } from "../project.js";
+let today = new Date();
+let month = today.getMonth() + 1;
+let monthString = month < 10 ? `0${month}` : `${month}`;
+let todayDateString = `${today.getFullYear()}-${monthString}-${today.getDate()}`;
 
 let DefaultProject = document.createElement("h1");
 DefaultProject.setAttribute("id", "projectViewHeading");
 DefaultProject.textContent = "Default Project";
 DefaultProject.dataset.array = 0;
+DefaultProject.dataset.filter = " ";
 
 const createToDo = document.createElement("button");
 createToDo.setAttribute("id", "addTodo");
@@ -21,11 +26,11 @@ dialog.innerHTML = `
           <label for="description"></label>
           <textarea name="description" id="description"  rows="5" cols="33" placeholder= "description"></textarea>
           <label class="dateLabel" for="date">Due date:</label>
-          <input type="date" name="date" id="date"  required>
+          <input type="date" name="date" id="date" value = "${todayDateString}"min="${todayDateString}" required>
          <label class = "priorityLabel" for ="priority">Priority:</label>
          <select name="priority" id="priority">
           <option value ="high">high</option>
-          <option vaule ="medium">medium</option>
+          <option value ="medium">medium</option>
           <option value ="low"> low</option>
           </select>
            
