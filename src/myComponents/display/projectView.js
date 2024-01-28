@@ -76,8 +76,9 @@ function submit() {
     let selectedProjectIndex = DefaultProject.dataset.array;
     console.log(`Submit button clicked for array ${selectedProjectIndex}`);
     addToDO(projectsArray[selectedProjectIndex].array, selectedProjectIndex);
+    form.reset();
+    dialog.close();
   });
-  form.reset();
 }
 
 export { renderProjectview, cancel, submit, DefaultProject };
