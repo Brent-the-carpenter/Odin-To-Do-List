@@ -1,5 +1,5 @@
 import "./style.css";
-import { addProject, renderProjects } from "./project.js";
+import {  renderProjects } from "./project.js";
 import { renderActionbar } from "./display/actionBar.js";
 import { renderProjectview } from "./display/projectView.js";
 import { cancel, submit } from "./display/projectView.js";

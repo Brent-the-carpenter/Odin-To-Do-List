@@ -1,5 +1,5 @@
 import { renderTODO } from "./todo.js";
-import { DefaultProject } from "./display/projectView.js";
+
 let filteredArray = [];
 function filterTodosByDate(dateRange, currentArray) {
   let today = new Date();

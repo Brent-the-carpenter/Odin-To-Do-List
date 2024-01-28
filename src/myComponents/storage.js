@@ -41,7 +41,7 @@ function loadAndRenderTodosForAllProjects() {
 window.addEventListener("load", loadAndRenderTodosForAllProjects);
 
 function renderTodosForProject(project) {
-  const todosArray = project.todos;
+  const todosArray = project.array;
 
   renderTODO(todosArray);
 }

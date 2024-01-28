@@ -68,7 +68,7 @@ function cancel() {
     openCheck(dialog);
   });
 }
-// when submit is clicked it checks what project we are  on and passes vaule to add to do func
+
 function submit() {
   let submitButton = document.querySelector("#submit");
   submitButton.addEventListener("click", () => {

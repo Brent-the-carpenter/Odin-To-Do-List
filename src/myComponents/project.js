@@ -15,37 +15,29 @@ function addProject(name) {
   if (name === "") {
     alert("can not create project with no name!");
   } else {
-    // Create a new project
     let newProject = new ProjectFolder(name);
     newProject.index = projectsArray.length;
     console.log(`${newProject.name} index ${newProject.index}`);
 
-    // Retrieve existing projects from local storage
     const existingProjectsString = localStorage.getItem("ProjectFolders");
     const existingProjects = existingProjectsString
       ? JSON.parse(existingProjectsString)
       : [];
 
-    // Check if the project already exists
     const isProjectExists = existingProjects.some(
       (project) => project.name === name
     );
 
-    // Add the new project to the existing projects array only if it doesn't exist
     if (!isProjectExists) {
       existingProjects.push(newProject);
     }
 
-    // Update local storage with the updated projects array
     localStorage.setItem("ProjectFolders", JSON.stringify(existingProjects));
 
-    // Update projectsArray with the updated projects
     projectsArray = existingProjects;
 
-    // Render projects
     renderProjects();
 
-    // Return the new project (useful if you want to do something with it)
     return newProject;
   }
 }
@@ -85,7 +77,7 @@ function renderProjects() {
     return;
   }
   console.log(projectsArray);
-  projectsArray.forEach((project) => {
+  projectsArray.forEach((project, index) => {
     let folderContainer = document.createElement("div");
     folderContainer.setAttribute("id", "folderContainer");
 
@@ -95,7 +87,7 @@ function renderProjects() {
     projectFolderButton.dataset.array = project.index;
 
     let deletefolder = document.createElement("button");
-    deletefolder.setAttribute("id", `deleteProject`);
+    deletefolder.setAttribute("id", `deleteProject-${index}`);
     deletefolder.textContent = "x";
 
     // i++;
@@ -109,10 +101,13 @@ function renderProjects() {
       projectEntry.value = "";
     });
 
-    deletefolder.addEventListener("click", () => {
-      projectsArray.splice(project.index, 1);
+    deletefolder.addEventListener("click", (event) => {
+      let deleteFolderIndex = event.target.id;
 
-      deleteProjectFromStorage(project.index);
+      let deleteFolderAt = deleteFolderIndex.split("-");
+      projectsArray.splice(deleteFolderAt[1], 1);
+
+      deleteProjectFromStorage(deleteFolderAt[1]);
       renderProjects();
     });
 
@@ -120,6 +115,8 @@ function renderProjects() {
     folderContainer.appendChild(deletefolder);
     projectContainer.appendChild(folderContainer);
   });
+
+  // renderTODO(projectsArray[defaultProject.dataset.array].array);
 }
 function changeProjectViewHeading(projectName, arrayIndex) {
   console.log("changing name");

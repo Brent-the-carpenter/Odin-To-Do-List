@@ -93,7 +93,6 @@ function renderTODO(array) {
       let deleteToDoIndex = event.target.id;
       let deleteToDoAt = deleteToDoIndex.split("-");
       console.log(`array before delete ${projectsArray[currentProject].array}`);
-      // console.log(object.index);
 
       projectsArray[currentProject].array.splice(deleteToDoAt[1], 1);
       deleteTodo(currentProject, deleteToDo[1]);
