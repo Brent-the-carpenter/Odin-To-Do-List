@@ -26,7 +26,7 @@ function addToDO(array, selectedProjectIndex) {
   } else {
     let newTodo = new todo(title, description, date, priority);
     newTodo.index = array.length;
-    // localStorage.setItem(`${newTodo.name}`, newTodo);
+
     array.push(newTodo);
     updateLocalStorageProjects(array, selectedProjectIndex);
 

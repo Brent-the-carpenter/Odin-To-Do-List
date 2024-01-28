@@ -1,7 +1,7 @@
 import { actionBar } from "../index.js";
 import { addProject, projectsArray, renderProjects } from "../project.js";
 import { filterTodosByDate } from "../sortByDate.js";
-import "../sortByDate.js"; // might not need
+import "../sortByDate.js";
 import { DefaultProject } from "./projectView.js";
 import { renderTODO } from "../todo.js";
 import { getAllProjectsFromStorage } from "../storage.js";
@@ -39,7 +39,7 @@ Week.addEventListener("click", () => {
 const Month = document.createElement("button");
 Month.setAttribute("id", "month");
 Month.addEventListener("click", () => {
-  (DefaultProject.dataset.filter = "month"), //new
+  (DefaultProject.dataset.filter = "month"),
     filterTodosByDate(
       "month",
       projectsArray[DefaultProject.dataset.array].array
